@@ -23,7 +23,7 @@ function setup() {
 }
 
 function draw(){
-  if (!pause && ((millis()-start)/300)>stepnum){
+  if (!pause && ((millis()-start)/1000)>stepnum){
     if (stepnum%3==0) monteCarloStepv1();
     else if (stepnum%3==1) monteCarloStepv2();
     else if (stepnum%3==2) monteCarloStepv3();
@@ -67,7 +67,7 @@ function monteCarloStep(){
 }
 
 function monteCarloGraphic(){
-  background(167,167,183);
+  background(158,225,245);
   drawLines();
   drawGrid();
 }
@@ -82,11 +82,11 @@ class Spin {
   }
   draw(){
     if (this.val){
-      fill(84,84,100);
+      fill(3,121,160);
     } else {
-      fill(167,167,183);
+      fill(147,217,240);
     }
-    stroke(84,84,100);
+    stroke(3,121,160);
     strokeWeight(cellw/30);
     ellipse(this.pixcoord.x,this.pixcoord.y,cellw/3,cellw/3);
   }
@@ -176,10 +176,10 @@ function drawGrid(){
 }
 
 function drawLines(){
-  stroke(84,84,100);
-  strokeWeight(cellw/50);
-  for (var y=0; y<size; y+=1){
-    for (var x=0; x<size; x+=1){
+  stroke(90,165,191);
+  strokeWeight(cellw/25);
+  for (var y=0; y<size-1; y+=1){
+    for (var x=0; x<size-1; x+=1){
       if (a[y][x].connections.right) line(a[y][x].pixcoord.x+cellw,a[y][x].pixcoord.y,a[y][x].pixcoord.x,a[y][x].pixcoord.y);
       if (a[y][x].connections.down) line(a[y][x].pixcoord.x,a[y][x].pixcoord.y+cellw,a[y][x].pixcoord.x,a[y][x].pixcoord.y);
     }
@@ -187,6 +187,9 @@ function drawLines(){
   for (var i=0; i<size; i+=1) {
     if (a[size-1][i].connections.down) line(a[size-1][i].pixcoord.x,cellw,a[size-1][i].pixcoord.x,0);
     if (a[i][size-1].connections.right) line(0,a[i][size-1].pixcoord.y,cellw,a[i][size-1].pixcoord.y);
+    
+    if (a[i][size-1].connections.right) line(W,a[i][size-1].pixcoord.y,a[i][size-1].pixcoord.x,a[i][size-1].pixcoord.y);
+    if (a[size-1][i].connections.down) line(a[size-1][i].pixcoord.x,H,a[size-1][i].pixcoord.x,a[size-1][i].pixcoord.y);
   }
 }
 
